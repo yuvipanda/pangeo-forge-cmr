@@ -1,9 +1,12 @@
 from cmr import GranuleQuery
 
 
-def get_cmr_granule_links(shortname: str):
+def get_cmr_granule_links(shortname: str, limit: int = 0):
     """
-    Return *all* downloadable files for given CMR shortname
+    Return downloadable files for given CMR shortname
+
+    limit specifies number of granules to fetch. Set to 0 to retrieve
+    all of them.
     """
     # Get a list of granules for this collection from CMR
     api_granule = GranuleQuery()
@@ -16,8 +19,10 @@ def get_cmr_granule_links(shortname: str):
     api_granule_downloadable = api_granule.downloadable()
     print(f'number of downloadable granules: f{api_granule_downloadable.downloadable().hits()}')
 
-    # retrieve all the granules
-    granules = api_granule.get(10)
+    if limit == 0:
+        granules = api_granule.get_all()
+    else:
+        granules = api_granule.get(limit)
 
     # Find list of all downloadable URLs for the granules
     downloadable_urls = []
@@ -33,5 +38,3 @@ def get_cmr_granule_links(shortname: str):
             print('no downloadable url found')
 
     return downloadable_urls
-
-get_cmr_granule_links('GPM_3IMERGDL')
