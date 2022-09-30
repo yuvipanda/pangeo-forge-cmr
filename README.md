@@ -17,7 +17,9 @@ shortname = 'GPM_3IMERGDL'
 recipe = XarrayZarrRecipe( # We are making Zarr, could be something else too
     pattern_from_file_sequence(
         get_cmr_granules_links(shortname), # Provide a list of files by querying CMR
+        nitems_per_file=1,
         concat_dim='time',  # Describe how the dataset is chunked
     ),
+    inputs_per_chunk=12,
 )
 ```
