@@ -27,3 +27,8 @@ recipe = XarrayZarrRecipe( # We are making Zarr, could be something else too
     inputs_per_chunk=12,
 )
 ```
+
+## Credit
+
+Most of the CMR code was developed by [Brianna Pagán](https://github.com/briannapagan)
+in [this PR](https://github.com/pangeo-forge/staged-recipes/pull/190)
