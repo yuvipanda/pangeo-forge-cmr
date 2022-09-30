@@ -4,6 +4,10 @@ Small library that integrates NASA's [Common Metadata Repository](https://www.ea
 (CMR) with [pangeo-forge-recipes](https://github.com/pangeo-forge/pangeo-forge-recipes).
 The goal is to help make pangeo-forge recipes that use CMR for getting raw data.
 
+## Installation
+
+You can install this from PyPI with `pip install pangeo-forge-cmr`.
+
 ## Example
 
 ```python
