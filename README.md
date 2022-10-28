@@ -13,14 +13,14 @@ You can install this from PyPI with `pip install pangeo-forge-cmr`.
 ```python
 from pangeo_forge_recipes.patterns import pattern_from_file_sequence
 from pangeo_forge_recipes.recipes import XarrayZarrRecipe
-from pangeo_forge_cmr import get_cmr_granules_links
+from pangeo_forge_cmr import get_cmr_granule_links
 
 # Get the GPM IMERG Late Precipitation Daily data
 shortname = 'GPM_3IMERGDL'
 
 recipe = XarrayZarrRecipe( # We are making Zarr, could be something else too
     pattern_from_file_sequence(
-        get_cmr_granules_links(shortname), # Provide a list of files by querying CMR
+        get_cmr_granule_links(shortname), # Provide a list of files by querying CMR
         nitems_per_file=1,
         concat_dim='time',  # Describe how the dataset is chunked
     ),
