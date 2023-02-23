@@ -1,4 +1,5 @@
 from cmr import GranuleQuery
+from pangeo_forge_recipes.patterns import FilePattern, pattern_from_file_sequence
 
 
 def get_cmr_granule_links(shortname: str, limit: int = 0):
@@ -38,3 +39,19 @@ def get_cmr_granule_links(shortname: str, limit: int = 0):
             print('no downloadable url found')
 
     return downloadable_urls
+
+
+def files_from_cmr(shortname: str, concat_dim, nitems_per_file=None, **kwargs) -> FilePattern:
+    """
+    Return a filepattern with *all* downloadable granules for given shortname.
+
+    Rest of parameters are passed straight to pangeo_forge_recipes.patterns.pattern_from_file_seqeuence
+    convenience method.
+    """
+    urls = get_cmr_granule_links(shortname)
+    return pattern_from_file_sequence(
+        urls,
+        concat_dim,
+        nitems_per_file,
+        **kwargs
+    )
