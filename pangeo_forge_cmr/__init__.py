@@ -32,7 +32,7 @@ def get_cmr_granule_links(shortname: str, limit: int = 0):
             # Find downloadable data URL
             if link['rel'] == 'http://esipfed.org/ns/fedsearch/1.1/data#':
 
-                log.debug(f'Found downloadable granule URL {link["rel"]} for {shortname}')
+                log.debug(f'Found downloadable granule URL {link["href"]} for {shortname}')
                 downloadable_urls.append(link['href'])
                 break
         else:
