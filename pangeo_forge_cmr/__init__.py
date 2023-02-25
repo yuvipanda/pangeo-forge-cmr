@@ -1,5 +1,9 @@
 from cmr import GranuleQuery
 from pangeo_forge_recipes.patterns import FilePattern, pattern_from_file_sequence
+import logging
+
+# We only operate during the *parse* time, so output to the pangeo force *parsing* log
+log = logging.getLogger("pangeo_forge_recipes.parse")
 
 
 def get_cmr_granule_links(shortname: str, limit: int = 0):
@@ -14,11 +18,7 @@ def get_cmr_granule_links(shortname: str, limit: int = 0):
     api_granule.parameters(
         short_name=shortname
     )
-    # FIXME: Use logging instead here
-    # We use print statements to provide debug output as we go laong
-    print(f'number of granules: {api_granule.hits()}')
     api_granule_downloadable = api_granule.downloadable()
-    print(f'number of downloadable granules: f{api_granule_downloadable.downloadable().hits()}')
 
     if limit == 0:
         granules = api_granule.get_all()
@@ -31,13 +31,14 @@ def get_cmr_granule_links(shortname: str, limit: int = 0):
         for link in granule['links']:
             # Find downloadable data URL
             if link['rel'] == 'http://esipfed.org/ns/fedsearch/1.1/data#':
-                print('adding url: ' + link['href'])
+
+                log.debug(f'Found downloadable granule URL {link["rel"]} for {shortname}')
                 downloadable_urls.append(link['href'])
                 break
         else:
-            # FIXME: Provide useful info here
-            print('no downloadable url found')
+            log.debug(f"No downloadable URL found in {granule}")
 
+    logging.info(f'Found {len(downloadable_urls)} from CMR for {shortname}')
     return downloadable_urls
 
 
