@@ -38,7 +38,7 @@ def get_cmr_granule_links(shortname: str, limit: int = 0):
         else:
             log.debug(f"No downloadable URL found in {granule}")
 
-    logging.info(f'Found {len(downloadable_urls)} from CMR for {shortname}')
+    log.info(f'Found {len(downloadable_urls)} from CMR for {shortname}')
     return downloadable_urls
 
 
